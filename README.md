@@ -65,3 +65,18 @@
 **Availability-ийн error budget (ЦАГААР)**
 
 2 минут = 120 секунд. SLO 90% бол 10% нь эвдрэх эрхтэй: 120 с x 0.10 = **12 секунд**. Төлөвлөсөн 10 секундийн зогсолт энэ budget-ийн 10 / 12 = 83%-ийг зарцуулна, 2 секунд л нөөц үлдэнэ. Хэрэв сервер 12 секундээс удаан сэргэвэл SLO зөрчигдөнө. Энэ нь хугацаагаар тооцсон budget бөгөөд Алхам 5-д хүсэлтээр дахин тооцож, хоёр тоо яагаад зөрж байгааг тайлбарлана.
+
+## Алхам 4: SLO → k6 threshold (slo-test.js)
+
+| SLO | k6 threshold | Зорилго |
+|---|---|---|
+| Performance: /cart/add p95 | http_req_duration{name:cart}: p(95)<босго (README-ийн Алхам 3 хүснэгттэй ижил) | latency |
+| Reliability: /pay error rate < 8% | http_req_failed{name:pay}: rate<0.08 | алдааны хувь |
+| Availability: амжилтын хувь >= 90% | checks: rate>0.90 | бүх хүсэлтийн амжилт |
+| Нэмэлт: /report p95 < 450 мс | http_req_duration{name:report}: p(95)<450 | удаан endpoint |
+
+/report-ийн босго: сервер 200-400 мс санамсаргүй хүлээдэг тул p95 нь ойролцоогоор 395-405 мс, дээд хязгаар 400 мс дээр 12.5%-ийн нөөц нэмж 450 мс болгосон.
+
+Нэг тэмдэглэл: checks threshold нь одоогоор зөвхөн /pay-ийн санамсаргүй 500-г тоолдог (~2% нь нийт check-ээс). Жинхэнэ crash-ийн availability-г Алхам 5-д серверийг зогсоож хэмжинэ.
+
+Үр дүн: results/pass.txt (бүх threshold PASS, exit code 0), results/fail.txt (санаатай хатуу threshold FAIL, exit code 99).
