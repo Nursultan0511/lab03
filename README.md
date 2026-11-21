@@ -79,4 +79,4 @@
 
 Нэг тэмдэглэл: checks threshold нь одоогоор зөвхөн /pay-ийн санамсаргүй 500-г тоолдог (~2% нь нийт check-ээс). Жинхэнэ crash-ийн availability-г Алхам 5-д серверийг зогсоож хэмжинэ.
 
-Үр дүн: results/pass.txt (бүх threshold PASS, exit code 0), results/fail.txt (санаатай хатуу threshold FAIL, exit code 99).
+Үр дүн: results/pass.txt (бүх threshold PASS, exit code 0), results/fail-step4-strict.txt (санаатай хатуу threshold FAIL, exit code 99).
