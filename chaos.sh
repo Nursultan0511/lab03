@@ -20,5 +20,5 @@ READY=$(date +%s.%N)
 MTTR=$(awk -v a="$CRASH" -v b="$READY" 'BEGIN{printf "%.1f", b-a}')
 echo "СЭРГЭЛТ: сервер дахин бэлэн боллоо ($(date +%T)), MTTR = ${MTTR} с"
 echo "$MTTR" > results/chaos-mttr.txt
-wait $K6; echo "k6 exit code: $?"
+wait $K6; EC=$?; echo "k6 exit code: $EC"; echo "exit code: $EC" >> results/chaos.txt
 kill -INT $SRV 2>/dev/null
